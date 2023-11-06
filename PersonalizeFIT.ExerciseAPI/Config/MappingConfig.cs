@@ -15,13 +15,15 @@ namespace PersonalizeFIT.ExerciseAPI.Config
                 config.CreateMap<GetMuscularGroupResponse, MuscularGroupEntity>().ReverseMap();
 
                 config.CreateMap<PostExerciseRequest, ExerciseEntity>().ReverseMap();
+                config.CreateMap<UpdateExerciseRequest, ExerciseEntity>().ReverseMap();
                 config.CreateMap<ExerciseEntity, GetExerciseResponse>()
                     .ForMember(dest => dest.MuscularGroup, opt => opt.MapFrom(src => src.MuscularGroup))
                     .ForMember(dest => dest.EquivalentExercises, opt => opt.MapFrom(src => src.EquivalentExercises.Select(e => new ExerciseAttributesResponse
                     {
                         Id = e.Id,
                         Name = e.Name
-                    })));
+                    })))
+                    .ReverseMap();
 
                 
             });

@@ -16,13 +16,22 @@ namespace PersonalizeFIT.ExerciseAPI.Controllers
         private IPostExercise _postExercise;
         private IGetExercise _getExercise;
         private IGetAllExercises _getAllExercises;
+        private IDeleteExercise _deleteExercise;
+        private IUpdateExercise _updateExercise;
 
-        public ExerciseController(IPostExercise postExercise, IGetExercise getExercise, IGetAllExercises getAllExercises)
+        public ExerciseController(
+            IPostExercise postExercise, 
+            IGetExercise getExercise, 
+            IGetAllExercises getAllExercises, 
+            IDeleteExercise deleteExercise, 
+            IUpdateExercise updateExercise
+            )
         {
             _postExercise = postExercise;
             _getExercise = getExercise;
             _getAllExercises = getAllExercises;
-
+            _deleteExercise = deleteExercise;
+            _updateExercise = updateExercise;
         }
 
         // GET: api/<ValuesController>
@@ -75,14 +84,38 @@ namespace PersonalizeFIT.ExerciseAPI.Controllers
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateExerciseRequest request)
         {
+            try
+            {
+                var message = await _updateExercise.UpdateExerciseAsync(id, request);
+                return Ok(message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var exercise = await _deleteExercise.DeleteExerciseAsync(id);
+                return Ok(exercise);
+            } catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

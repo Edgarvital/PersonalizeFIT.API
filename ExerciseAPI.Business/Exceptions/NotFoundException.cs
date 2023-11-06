@@ -8,7 +8,7 @@ namespace ExerciseAPI.Business.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException() : base("Resource not found.") {}
+        public NotFoundException(string message = "Resource not found.") : base(message) {}
     }
 
 }

@@ -11,7 +11,7 @@ namespace ExerciseAPI.Entity.Models
         public string Name { get; set; }
         public string Status { get; set; }
         public int MuscularGroupId { get; set; }
-
+        public string TrainerId { get; set; }
         public List<int> EquivalentExerciseIds { get; set; }
     }
 
