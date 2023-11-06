@@ -20,19 +20,12 @@ namespace ExerciseAPI.Business.Exercise
             var exercise = await _exerciseContext.Exercises
                 .Include(e => e.MuscularGroup)
                 .Include(e => e.EquivalentExercises)
-                .FirstOrDefaultAsync(e => e.Id == exerciseId);
+                .FirstOrDefaultAsync(e => e.Id == exerciseId) ?? throw new NotFoundException("Exercicio não encontrado.");
+            _exerciseContext.Exercises.Remove(exercise);
+            await _exerciseContext.SaveChangesAsync();
 
-            if (exercise != null)
-            {
-                _exerciseContext.Exercises.Remove(exercise);
-                await _exerciseContext.SaveChangesAsync();
+            return _mapper.Map<GetExerciseResponse>(exercise);
 
-                return _mapper.Map<GetExerciseResponse>(exercise);
-            }
-            else
-            {
-                throw new NotFoundException("Exercicio não encontrado.");
-            }
         }
 
     }

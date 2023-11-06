@@ -15,12 +15,23 @@ namespace PersonalizeFIT.ExerciseAPI.Controllers
         private IPostMuscularGroup _postMuscularGroup;
         private IGetAllMuscularGroups _getAllMuscularGroups;
         private IGetMuscularGroup _getMuscularGroup;
+        private IUpdateMuscularGroup _updateMuscularGroup;
+        private IDeleteMuscularGroup _deleteMuscularGroup;
 
-        public MuscularGroupController(IPostMuscularGroup postMuscularGroup, IGetAllMuscularGroups getAllMuscularGroups, IGetMuscularGroup getMuscularGroup)
+        public MuscularGroupController(
+            IPostMuscularGroup postMuscularGroup,
+            IGetAllMuscularGroups getAllMuscularGroups,
+            IGetMuscularGroup getMuscularGroup,
+            IUpdateMuscularGroup updateMuscularGroup,
+            IDeleteMuscularGroup deleteMuscularGroup
+            )
         {
             _postMuscularGroup = postMuscularGroup;
             _getAllMuscularGroups = getAllMuscularGroups;
             _getMuscularGroup = getMuscularGroup;
+            _updateMuscularGroup = updateMuscularGroup;
+            _deleteMuscularGroup = deleteMuscularGroup;
+
         }
 
         // GET: api/<MuscularGroupController>
@@ -65,7 +76,8 @@ namespace PersonalizeFIT.ExerciseAPI.Controllers
             {
                 var message = await _postMuscularGroup.CreateMuscularGroupAsync(request);
                 return Ok(message);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -73,14 +85,39 @@ namespace PersonalizeFIT.ExerciseAPI.Controllers
 
         // PUT api/<MuscularGroupController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateMuscularGroupRequest request)
         {
+            try
+            {
+                var message = await _updateMuscularGroup.UpdateMuscularGroupAsync(id, request);
+                return Ok(message);
+            }catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<MuscularGroupController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            try
+            {
+                var muscularGroup = await _deleteMuscularGroup.DeleteMuscularGroupAsync(id);
+                return Ok(muscularGroup);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

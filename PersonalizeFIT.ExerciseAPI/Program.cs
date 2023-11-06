@@ -81,7 +81,7 @@ builder.Services.AddScoped(typeof(IGetAllMuscularGroups), typeof(GetAllMuscularG
 builder.Services.AddScoped(typeof(IGetMuscularGroup), typeof(GetMuscularGroup));
 builder.Services.AddScoped(typeof(IPostMuscularGroup), typeof(PostMuscularGroup));
 builder.Services.AddScoped(typeof(IUpdateMuscularGroup), typeof(UpdateMuscularGroup));
-builder.Services.AddScoped(typeof(IDeleteExercise), typeof(DeleteExercise));
+builder.Services.AddScoped(typeof(IDeleteMuscularGroup), typeof(DeleteMuscularGroup));
 
 var app = builder.Build();
 

@@ -25,12 +25,7 @@ namespace ExerciseAPI.Business.Exercise
                 .Exercises
                 .Include(e => e.MuscularGroup)
                 .Include(e => e.EquivalentExercises)
-                .FirstOrDefaultAsync(e => e.Id == exerciseId);
-
-            if (exercise == null)
-            {
-                throw new NotFoundException();
-            }
+                .FirstOrDefaultAsync(e => e.Id == exerciseId) ?? throw new NotFoundException("Exercicio não encontrado.");
 
             return _mapper.Map<GetExerciseResponse>(exercise);
         }

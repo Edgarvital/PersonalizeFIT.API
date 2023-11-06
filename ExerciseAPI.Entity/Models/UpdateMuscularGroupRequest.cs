@@ -8,6 +8,6 @@ namespace ExerciseAPI.Entity.Models
 {
     public class UpdateMuscularGroupRequest
     {
-        public string Name;
+        public string Name { get; set; }
     }
 }

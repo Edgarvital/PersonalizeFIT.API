@@ -13,6 +13,7 @@ namespace PersonalizeFIT.ExerciseAPI.Config
             {               
                 config.CreateMap<PostMuscularGroupRequest, MuscularGroupEntity>().ReverseMap();
                 config.CreateMap<GetMuscularGroupResponse, MuscularGroupEntity>().ReverseMap();
+                config.CreateMap<UpdateMuscularGroupRequest, MuscularGroupEntity>().ReverseMap();
 
                 config.CreateMap<PostExerciseRequest, ExerciseEntity>().ReverseMap();
                 config.CreateMap<UpdateExerciseRequest, ExerciseEntity>().ReverseMap();

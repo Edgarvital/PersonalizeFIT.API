@@ -22,13 +22,7 @@ namespace ExerciseAPI.Business.MuscularGroup
         {
             var muscularGroup = await _exerciseContext
                 .MuscularGroups
-                .FirstOrDefaultAsync(e => e.Id == muscularGroupId);
-
-            if (muscularGroup == null)
-            {
-                throw new NotFoundException();
-            }
-
+                .FirstOrDefaultAsync(e => e.Id == muscularGroupId) ?? throw new NotFoundException("Grupo Muscular não encontrado.");
             return _mapper.Map<GetMuscularGroupResponse>(muscularGroup);
         }
     }
