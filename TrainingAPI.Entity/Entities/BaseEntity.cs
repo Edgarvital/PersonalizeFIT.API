@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ExerciseAPI.Entity.Entities
+namespace TrainingAPI.Entity.Entities
 {
     public class BaseEntity
     {

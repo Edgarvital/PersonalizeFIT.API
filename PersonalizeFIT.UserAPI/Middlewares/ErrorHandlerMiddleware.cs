@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PersonalizeFIT.TrainingAPI.Middlewares;
+namespace PersonalizeFIT.UserAPI.Middlewares;
 
 public class ErrorHandlerMiddleware : IMiddleware
 {
