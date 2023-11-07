@@ -35,8 +35,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserAPI.Connectors", "UserA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserAPI.Entity", "UserAPI.Entity\UserAPI.Entity.csproj", "{812976D8-04FC-466D-B553-B91A8BC2DBFA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Userr", "Userr", "{4CD90606-84C1-4EA3-BAC4-716156959973}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

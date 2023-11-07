@@ -15,7 +15,6 @@ namespace ExerciseAPI.Connectors.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.HasDefaultSchema(Schema);
 
             base.OnModelCreating(modelBuilder);
