@@ -26,10 +26,6 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TrainingAPI.Business\TrainingAPI.Business.csproj" />
     <ProjectReference Include="..\TrainingAPI.Connectors\TrainingAPI.Connectors.csproj" />
     <ProjectReference Include="..\TrainingAPI.Entity\TrainingAPI.Entity.csproj" />

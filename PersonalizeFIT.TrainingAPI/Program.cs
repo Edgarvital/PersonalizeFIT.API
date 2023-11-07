@@ -6,6 +6,7 @@ using Keycloak.AuthServices.Sdk.Admin;
 using PersonalizeFIT.TrainingAPI.Config;
 using TrainingAPI.Connectors.Database;
 using PersonalizeFIT.TrainingAPI.Middlewares;
+using TrainingAPI.Business.TrainingGroup;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,7 +73,17 @@ builder.Services.AddMemoryCache();
 
 builder.Services.AddTransient<ErrorHandlerMiddleware>();
 
-//builder.Services.AddScoped(typeof(IGetAllExercises), typeof(GetAllExercises));
+builder.Services.AddScoped(typeof(IGetAllTrainingGroups), typeof(GetAllTrainingGroups));
+builder.Services.AddScoped(typeof(IGetTrainingGroup), typeof(GetTrainingGroup));
+builder.Services.AddScoped(typeof(IPostTrainingGroup), typeof(PostTrainingGroup));
+builder.Services.AddScoped(typeof(IUpdateTrainingGroup), typeof(UpdateTrainingGroup));
+builder.Services.AddScoped(typeof(IDeleteTrainingGroup), typeof(DeleteTrainingGroup));
+
+builder.Services.AddScoped(typeof(IGetAllTrainingPresets), typeof(GetAllTrainingPresets));
+builder.Services.AddScoped(typeof(IGetTrainingPreset), typeof(GetTrainingPreset));
+builder.Services.AddScoped(typeof(IPostTrainingPreset), typeof(PostTrainingPreset));
+builder.Services.AddScoped(typeof(IUpdateTrainingPreset), typeof(UpdateTrainingPreset));
+builder.Services.AddScoped(typeof(IDeleteTrainingPreset), typeof(DeleteTrainingPreset));
 
 var app = builder.Build();
 
