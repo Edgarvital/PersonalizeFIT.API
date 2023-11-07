@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TrainingAPI.Business.TrainingGroup;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,10 +9,24 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
     [ApiController]
     public class TrainingGroupController : ControllerBase
     {
+        private IGetAllTrainingGroups _getAllTrainingGroups;
+        private IGetTrainingGroup _getTrainingGroup;
+        private IPostTrainingGroup _postTrainingGroup;
+        private IUpdateTrainingGroup _updateTrainingGroup;
+        private IDeleteTrainingGroup _deleteTrainingGroup;
 
-        public TrainingGroupController()
+        public TrainingGroupController(
+            IGetTrainingGroup getTrainingGroup,
+            IPostTrainingGroup postTrainingGroup,
+            IUpdateTrainingGroup updateTrainingGroup,
+            IDeleteTrainingGroup deleteTrainingGroup
+            )
         {
-            
+            _getTrainingGroup = getTrainingGroup;
+            _postTrainingGroup = postTrainingGroup;
+            _updateTrainingGroup = updateTrainingGroup;
+            _deleteTrainingGroup = deleteTrainingGroup;
+
         }
 
         // GET: api/<TrainingGroupController>

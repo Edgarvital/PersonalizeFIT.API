@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Models.TrainingGroup;
 
 namespace TrainingAPI.Business.TrainingGroup
 {
@@ -18,7 +19,7 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public async Task DeleteTrainingGroupAsync(int id)
+        public async Task<GetTrainingGroupResponse> DeleteTrainingGroupAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -26,6 +27,6 @@ namespace TrainingAPI.Business.TrainingGroup
 
     public interface IDeleteTrainingGroup
     {
-        public Task DeleteTrainingGroupAsync(int id);
+        public Task<GetTrainingGroupResponse> DeleteTrainingGroupAsync(int id);
     }
 }

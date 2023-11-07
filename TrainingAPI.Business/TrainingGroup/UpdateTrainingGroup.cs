@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Models.TrainingGroup;
 
 namespace TrainingAPI.Business.TrainingGroup
 {
@@ -13,7 +14,7 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task UpdateTrainingGroupAsync(int Id, string request)
+        public Task<string> UpdateTrainingGroupAsync(int Id, UpdateTrainingGroupRequest request)
         {
             throw new NotImplementedException();
         }
@@ -21,6 +22,6 @@ namespace TrainingAPI.Business.TrainingGroup
 
     public interface IUpdateTrainingGroup
     {
-        public Task UpdateTrainingGroupAsync(int Id, string request);
+        public Task<string> UpdateTrainingGroupAsync(int Id, UpdateTrainingGroupRequest request);
     }
 }

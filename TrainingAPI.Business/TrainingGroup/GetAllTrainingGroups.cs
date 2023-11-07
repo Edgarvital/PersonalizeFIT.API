@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Models;
 
 namespace TrainingAPI.Business.TrainingGroup
 {
@@ -18,7 +19,7 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public async Task GetAllTrainingGroupsAsync()
+        public async Task<List<GetTrainingGroupResponse>> GetAllTrainingGroupsAsync()
         {
             throw new NotImplementedException();
         }
@@ -26,6 +27,6 @@ namespace TrainingAPI.Business.TrainingGroup
 
     public interface IGetAllTrainingGroups
     {
-        public Task GetAllTrainingGroupsAsync();
+        public Task<List<GetTrainingGroupResponse>> GetAllTrainingGroupsAsync();
     }
 }
