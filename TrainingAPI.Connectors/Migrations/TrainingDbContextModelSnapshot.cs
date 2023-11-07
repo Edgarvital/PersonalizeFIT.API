@@ -23,8 +23,11 @@ namespace TrainingAPI.Connectors.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPresetEntity", b =>
+            modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPreset", b =>
                 {
+                    b.Property<int>("TrainingPresetId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("AcquisitionType")
                         .IsRequired()
                         .HasColumnType("text");
@@ -36,12 +39,9 @@ namespace TrainingAPI.Connectors.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TrainingPresetId")
-                        .HasColumnType("integer");
+                    b.HasKey("TrainingPresetId");
 
-                    b.HasIndex("TrainingPresetId");
-
-                    b.ToTable("StudentHasTrainingPresets", "PersonalizeFit.Training");
+                    b.ToTable("StudentHasTrainingPreset", "PersonalizeFit.Training");
                 });
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupEntity", b =>
@@ -66,8 +66,11 @@ namespace TrainingAPI.Connectors.Migrations
                     b.ToTable("TrainingGroups", "PersonalizeFit.Training");
                 });
 
-            modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExerciseEntity", b =>
+            modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExercise", b =>
                 {
+                    b.Property<int>("TrainingGroupId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ExerciseId")
                         .HasColumnType("integer");
 
@@ -75,16 +78,13 @@ namespace TrainingAPI.Connectors.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TrainingGroupId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("TrainingSetJsonString")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasIndex("TrainingGroupId");
+                    b.HasKey("TrainingGroupId", "ExerciseId");
 
-                    b.ToTable("TrainingGroupHasExercises", "PersonalizeFit.Training");
+                    b.ToTable("TrainingGroupHasExercise", "PersonalizeFit.Training");
                 });
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingPresetEntity", b =>
@@ -96,7 +96,9 @@ namespace TrainingAPI.Connectors.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("PresetDefaultFlag")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -111,7 +113,7 @@ namespace TrainingAPI.Connectors.Migrations
                     b.ToTable("TrainingPresets", "PersonalizeFit.Training");
                 });
 
-            modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPresetEntity", b =>
+            modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPreset", b =>
                 {
                     b.HasOne("TrainingAPI.Entity.Entities.TrainingPresetEntity", "TrainingPreset")
                         .WithMany()
@@ -133,7 +135,7 @@ namespace TrainingAPI.Connectors.Migrations
                     b.Navigation("TrainingPreset");
                 });
 
-            modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExerciseEntity", b =>
+            modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExercise", b =>
                 {
                     b.HasOne("TrainingAPI.Entity.Entities.TrainingGroupEntity", "TrainingGroup")
                         .WithMany()

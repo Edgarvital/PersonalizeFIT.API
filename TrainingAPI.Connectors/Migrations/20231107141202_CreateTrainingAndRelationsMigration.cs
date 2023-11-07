@@ -21,7 +21,7 @@ namespace TrainingAPI.Connectors.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    PresetDefaultFlag = table.Column<bool>(type: "boolean", nullable: false),
+                    PresetDefaultFlag = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     TrainerId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -30,19 +30,20 @@ namespace TrainingAPI.Connectors.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentHasTrainingPresets",
+                name: "StudentHasTrainingPreset",
                 schema: "PersonalizeFit.Training",
                 columns: table => new
                 {
+                    TrainingPresetId = table.Column<int>(type: "integer", nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     AcquisitionType = table.Column<string>(type: "text", nullable: false),
-                    StudentId = table.Column<string>(type: "text", nullable: false),
-                    TrainingPresetId = table.Column<int>(type: "integer", nullable: false)
+                    StudentId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_StudentHasTrainingPreset", x => x.TrainingPresetId);
                     table.ForeignKey(
-                        name: "FK_StudentHasTrainingPresets_TrainingPresets_TrainingPresetId",
+                        name: "FK_StudentHasTrainingPreset_TrainingPresets_TrainingPresetId",
                         column: x => x.TrainingPresetId,
                         principalSchema: "PersonalizeFit.Training",
                         principalTable: "TrainingPresets",
@@ -73,7 +74,7 @@ namespace TrainingAPI.Connectors.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TrainingGroupHasExercises",
+                name: "TrainingGroupHasExercise",
                 schema: "PersonalizeFit.Training",
                 columns: table => new
                 {
@@ -84,26 +85,15 @@ namespace TrainingAPI.Connectors.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_TrainingGroupHasExercise", x => new { x.TrainingGroupId, x.ExerciseId });
                     table.ForeignKey(
-                        name: "FK_TrainingGroupHasExercises_TrainingGroups_TrainingGroupId",
+                        name: "FK_TrainingGroupHasExercise_TrainingGroups_TrainingGroupId",
                         column: x => x.TrainingGroupId,
                         principalSchema: "PersonalizeFit.Training",
                         principalTable: "TrainingGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentHasTrainingPresets_TrainingPresetId",
-                schema: "PersonalizeFit.Training",
-                table: "StudentHasTrainingPresets",
-                column: "TrainingPresetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TrainingGroupHasExercises_TrainingGroupId",
-                schema: "PersonalizeFit.Training",
-                table: "TrainingGroupHasExercises",
-                column: "TrainingGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingGroups_TrainingPresetId",
@@ -115,11 +105,11 @@ namespace TrainingAPI.Connectors.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StudentHasTrainingPresets",
+                name: "StudentHasTrainingPreset",
                 schema: "PersonalizeFit.Training");
 
             migrationBuilder.DropTable(
-                name: "TrainingGroupHasExercises",
+                name: "TrainingGroupHasExercise",
                 schema: "PersonalizeFit.Training");
 
             migrationBuilder.DropTable(
