@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingAPI.Connectors.Database;
-using TrainingAPI.Entity.Models;
+using TrainingAPI.Entity.Models.TrainingGroup;
 
 namespace TrainingAPI.Business.TrainingGroup
 {

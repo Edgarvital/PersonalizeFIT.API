@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrainingAPI.Entity.Models
+namespace TrainingAPI.Entity.Models.TrainingGroup
 {
     public class PostTrainingGroupRequest
     {
         public string Name { get; set; }
         public int TrainingPresetId { get; set; }
-        public List<PostTrainingGroupHasExerciseRequest> TrainingGroupHasExercises { get; set;}
+        public List<PostTrainingGroupHasExerciseRequest> TrainingGroupHasExercises { get; set; }
     }
 
     public class PostTrainingGroupHasExerciseRequest

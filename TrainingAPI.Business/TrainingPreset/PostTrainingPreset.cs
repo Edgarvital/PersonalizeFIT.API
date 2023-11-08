@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Models.TrainingPreset;
 
 namespace TrainingAPI.Business.TrainingGroup
 {
@@ -18,7 +19,7 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task PostTrainingPresetAsync(string request)
+        public Task PostTrainingPresetAsync(PostTrainingPresetRequest request)
         {
             throw new NotImplementedException();
         }
@@ -26,6 +27,6 @@ namespace TrainingAPI.Business.TrainingGroup
 
     public interface IPostTrainingPreset
     {
-        public Task PostTrainingPresetAsync(string request);
+        public Task PostTrainingPresetAsync(PostTrainingPresetRequest request);
     }
 }

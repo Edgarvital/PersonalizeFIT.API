@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Models.TrainingPreset;
 
 namespace TrainingAPI.Business.TrainingGroup
 {
@@ -18,7 +14,7 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task UpdateTrainingPresetAsync(int Id, string request)
+        public Task UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request)
         {
             throw new NotImplementedException();
         }
@@ -26,6 +22,6 @@ namespace TrainingAPI.Business.TrainingGroup
 
     public interface IUpdateTrainingPreset
     {
-        public Task UpdateTrainingPresetAsync(int Id, string request);
+        public Task UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request);
     }
 }
