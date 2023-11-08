@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using TrainingAPI.Business.TrainingGroup;
+using TrainingAPI.Entity.Entities;
+using TrainingAPI.Entity.Models.TrainingPreset;
 
 namespace PersonalizeFIT.TrainingAPI.Config
 {
@@ -8,7 +11,7 @@ namespace PersonalizeFIT.TrainingAPI.Config
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                //config.CreateMap<PostMuscularGroupRequest, MuscularGroupEntity>().ReverseMap();
+                config.CreateMap<PostTrainingPresetRequest, TrainingPresetEntity>().ReverseMap();
             });
             return mappingConfig;
         }

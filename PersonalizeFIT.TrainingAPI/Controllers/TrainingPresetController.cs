@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TrainingAPI.Business.Exceptions;
 using TrainingAPI.Business.TrainingGroup;
+using TrainingAPI.Entity.Models.TrainingPreset;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,9 +18,9 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         private IDeleteTrainingPreset _deleteTrainingPreset;
 
         public TrainingPresetController(
-            IGetTrainingPreset getTrainingPreset, 
-            IPostTrainingPreset postTrainingPreset, 
-            IUpdateTrainingPreset updateTrainingPreset, 
+            IGetTrainingPreset getTrainingPreset,
+            IPostTrainingPreset postTrainingPreset,
+            IUpdateTrainingPreset updateTrainingPreset,
             IDeleteTrainingPreset deleteTrainingPreset
             )
         {
@@ -33,35 +35,87 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var TrainingPresets = await _getAllTrainingPresets.GetAllTrainingPresetsAsync();
+                return Ok(TrainingPresets);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/<TrainingPresetController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var TrainingPreset = await _getTrainingPreset.GetTrainingPresetAsync(id);
+                return Ok(TrainingPreset);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST api/<TrainingPresetController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] PostTrainingPresetRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var message = await _postTrainingPreset.PostTrainingPresetAsync(request);
+                return Ok(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<TrainingPresetController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateTrainingPresetRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Message = await _updateTrainingPreset.UpdateTrainingPresetAsync(id, request);
+                return Ok(Message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<TrainingPresetController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var TrainingPreset = await _deleteTrainingPreset.DeleteTrainingPresetAsync(id);
+                return Ok(TrainingPreset);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

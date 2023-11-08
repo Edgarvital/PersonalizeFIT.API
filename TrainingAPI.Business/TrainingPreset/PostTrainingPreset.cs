@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Entities;
 using TrainingAPI.Entity.Models.TrainingPreset;
 
 namespace TrainingAPI.Business.TrainingGroup
@@ -19,14 +20,20 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task PostTrainingPresetAsync(PostTrainingPresetRequest request)
+        public async Task<string> PostTrainingPresetAsync(PostTrainingPresetRequest request)
         {
-            throw new NotImplementedException();
+            var TrainingPreset = _mapper.Map<TrainingPresetEntity>(request);
+
+            _context.TrainingPresets.Add(TrainingPreset);
+
+            await _context.SaveChangesAsync();
+
+            return "Pré-Definição de Treino Cadastrada com Sucesso!";
         }
     }
 
     public interface IPostTrainingPreset
     {
-        public Task PostTrainingPresetAsync(PostTrainingPresetRequest request);
+        public Task<string> PostTrainingPresetAsync(PostTrainingPresetRequest request);
     }
 }
