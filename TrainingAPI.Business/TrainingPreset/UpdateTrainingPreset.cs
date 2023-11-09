@@ -18,11 +18,11 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<string> UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request)
         {
-            var TrainingPreset = await _context
+            var trainingPreset = await _context
                 .TrainingPresets
                 .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Training Preset não encontrado.");
 
-            _mapper.Map(request, TrainingPreset);
+            _mapper.Map(request, trainingPreset);
 
             await _context.SaveChangesAsync();
 

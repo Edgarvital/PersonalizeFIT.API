@@ -13,7 +13,7 @@ namespace TrainingAPI.Entity.Models.TrainingGroup
 
     public class TrainingPresetResponse
     {
-        public int Id;
+        public int Id { get; set; }
         public string Title { get; set; }
     }
     public class TrainingGroupHasExerciseResponse
@@ -24,7 +24,7 @@ namespace TrainingAPI.Entity.Models.TrainingGroup
 
         public JsonObject TrainingSetJson
         {
-            get => JsonSerializer.Deserialize<JsonObject>(TrainingSetJsonString);
+            //get => JsonSerializer.Deserialize<JsonObject>(TrainingSetJsonString);
             set => TrainingSetJsonString = JsonSerializer.Serialize(value);
         }
     }

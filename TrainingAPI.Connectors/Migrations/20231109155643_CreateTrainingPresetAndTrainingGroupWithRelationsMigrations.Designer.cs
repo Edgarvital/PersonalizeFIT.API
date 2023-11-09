@@ -12,8 +12,8 @@ using TrainingAPI.Connectors.Database;
 namespace TrainingAPI.Connectors.Migrations
 {
     [DbContext(typeof(TrainingDbContext))]
-    [Migration("20231107141202_CreateTrainingAndRelationsMigration")]
-    partial class CreateTrainingAndRelationsMigration
+    [Migration("20231109155643_CreateTrainingPresetAndTrainingGroupWithRelationsMigrations")]
+    partial class CreateTrainingPresetAndTrainingGroupWithRelationsMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,8 +27,11 @@ namespace TrainingAPI.Connectors.Migrations
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPreset", b =>
                 {
-                    b.Property<int>("TrainingPresetId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AcquisitionType")
                         .IsRequired()
@@ -41,7 +44,12 @@ namespace TrainingAPI.Connectors.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("TrainingPresetId");
+                    b.Property<int>("TrainingPresetId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrainingPresetId");
 
                     b.ToTable("StudentHasTrainingPreset", "PersonalizeFit.Training");
                 });
@@ -70,8 +78,11 @@ namespace TrainingAPI.Connectors.Migrations
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExercise", b =>
                 {
-                    b.Property<int>("TrainingGroupId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ExerciseId")
                         .HasColumnType("integer");
@@ -80,11 +91,16 @@ namespace TrainingAPI.Connectors.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("TrainingGroupId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("TrainingSetJsonString")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("TrainingGroupId", "ExerciseId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("TrainingGroupId");
 
                     b.ToTable("TrainingGroupHasExercise", "PersonalizeFit.Training");
                 });
@@ -98,9 +114,7 @@ namespace TrainingAPI.Connectors.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("PresetDefaultFlag")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -118,7 +132,7 @@ namespace TrainingAPI.Connectors.Migrations
             modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPreset", b =>
                 {
                     b.HasOne("TrainingAPI.Entity.Entities.TrainingPresetEntity", "TrainingPreset")
-                        .WithMany()
+                        .WithMany("StudentHasTrainingPresets")
                         .HasForeignKey("TrainingPresetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -140,12 +154,22 @@ namespace TrainingAPI.Connectors.Migrations
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExercise", b =>
                 {
                     b.HasOne("TrainingAPI.Entity.Entities.TrainingGroupEntity", "TrainingGroup")
-                        .WithMany()
+                        .WithMany("TrainingGroupHasExercises")
                         .HasForeignKey("TrainingGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("TrainingGroup");
+                });
+
+            modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupEntity", b =>
+                {
+                    b.Navigation("TrainingGroupHasExercises");
+                });
+
+            modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingPresetEntity", b =>
+                {
+                    b.Navigation("StudentHasTrainingPresets");
                 });
 #pragma warning restore 612, 618
         }

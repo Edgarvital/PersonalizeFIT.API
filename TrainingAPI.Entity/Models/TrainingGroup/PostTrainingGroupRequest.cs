@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,6 @@ namespace TrainingAPI.Entity.Models.TrainingGroup
     {
         public int ExerciseId { get; set; }
         public string Observation { get; set; }
-        public string TrainingSetJsonString { get; private set; }
+        public string TrainingSetJsonString { get; set; }
     }
 }

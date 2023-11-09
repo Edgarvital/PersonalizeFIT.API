@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TrainingAPI.Business.Exceptions;
 using TrainingAPI.Business.TrainingGroup;
+using TrainingAPI.Entity.Models.TrainingGroup;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,11 +19,13 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
 
         public TrainingGroupController(
             IGetTrainingGroup getTrainingGroup,
+            IGetAllTrainingGroups getAllTrainingGroups,
             IPostTrainingGroup postTrainingGroup,
             IUpdateTrainingGroup updateTrainingGroup,
             IDeleteTrainingGroup deleteTrainingGroup
             )
         {
+            _getAllTrainingGroups = getAllTrainingGroups;
             _getTrainingGroup = getTrainingGroup;
             _postTrainingGroup = postTrainingGroup;
             _updateTrainingGroup = updateTrainingGroup;
@@ -33,35 +37,87 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trainingGroups = await _getAllTrainingGroups.GetAllTrainingGroupsAsync();
+                return Ok(trainingGroups);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET api/<TrainingPresetController>/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trainingGroup = await _getTrainingGroup.GetTrainingGroupAsync(id);
+                return Ok(trainingGroup);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST api/<TrainingPresetController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] PostTrainingGroupRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var message = await _postTrainingGroup.PostTrainingGroupAsync(request);
+                return Ok(message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<TrainingPresetController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] UpdateTrainingGroupRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var message = await _updateTrainingGroup.UpdateTrainingGroupAsync(id, request);
+                return Ok(message);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<TrainingPresetController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var trainingGroup = await _deleteTrainingGroup.DeleteTrainingGroupAsync(id);
+                return Ok(trainingGroup);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

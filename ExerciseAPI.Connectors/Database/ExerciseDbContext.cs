@@ -15,9 +15,7 @@ namespace ExerciseAPI.Connectors.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema(Schema);
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.HasDefaultSchema(Schema);            
 
             modelBuilder.Entity<ExerciseEntity>()
                 .HasMany(e => e.EquivalentExercises)
@@ -27,6 +25,8 @@ namespace ExerciseAPI.Connectors.Database
                 l => l.HasOne(typeof(ExerciseEntity)).WithMany().HasForeignKey("EquivalentExerciseId").HasPrincipalKey(nameof(ExerciseEntity.Id)),
                 r => r.HasOne(typeof(ExerciseEntity)).WithMany().HasForeignKey("ExerciseId").HasPrincipalKey(nameof(ExerciseEntity.Id)),
                 k => k.HasKey("EquivalentExerciseId", "ExerciseId"));
+
+            base.OnModelCreating(modelBuilder);
         }
 
 

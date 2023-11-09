@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +23,11 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<List<GetTrainingGroupResponse>> GetAllTrainingGroupsAsync()
         {
-            throw new NotImplementedException();
+            var TrainingGroups = await _context.TrainingGroups
+                .ProjectTo<GetTrainingGroupResponse>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return TrainingGroups;
         }
     }
 

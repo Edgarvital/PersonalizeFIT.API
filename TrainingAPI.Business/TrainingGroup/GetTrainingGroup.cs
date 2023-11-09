@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrainingAPI.Business.Exceptions;
 using TrainingAPI.Connectors.Database;
 using TrainingAPI.Entity.Models.TrainingGroup;
 
@@ -21,7 +24,11 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<GetTrainingGroupResponse> GetTrainingGroupAsync(int Id)
         {
-            throw new NotImplementedException();
+            var TrainingGroup = await _context.TrainingGroups
+                .Include(e => e.TrainingGroupHasExercises)
+                .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Grupo de Treinamento não encontrado.");
+
+            return _mapper.Map<GetTrainingGroupResponse>(TrainingGroup);
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TrainingAPI.Connectors.Database;
+using TrainingAPI.Entity.Entities;
 using TrainingAPI.Entity.Models.TrainingGroup;
 
 namespace TrainingAPI.Business.TrainingGroup
@@ -14,9 +15,15 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task<string> PostTrainingGroupAsync(PostTrainingGroupRequest request)
+        public async Task<string> PostTrainingGroupAsync(PostTrainingGroupRequest request)
         {
-            throw new NotImplementedException();
+            var TrainingGroup = _mapper.Map<TrainingGroupEntity>(request);
+
+            _context.TrainingGroups.Add(TrainingGroup);            
+
+            await _context.SaveChangesAsync();
+
+            return "Grupo do Treinamento Cadastrado com Sucesso!";
         }
     }
 

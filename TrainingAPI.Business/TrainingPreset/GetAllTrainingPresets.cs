@@ -23,7 +23,6 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<List<GetTrainingPresetResponse>> GetAllTrainingPresetsAsync()
         {
-            Console.WriteLine("Entrou");
             var TrainingPresets = await _context.TrainingPresets
                 .ProjectTo<GetTrainingPresetResponse>(_mapper.ConfigurationProvider)
                 .ToListAsync();

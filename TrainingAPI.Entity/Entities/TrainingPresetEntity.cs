@@ -11,9 +11,10 @@ namespace TrainingAPI.Entity.Entities
         public string Title { get; set; }
         public bool PresetDefaultFlag { get; set; }
         public string TrainerId { get; set; }
+        public List<StudentHasTrainingPreset> StudentHasTrainingPresets { get; set; }
     }
 
-    public class StudentHasTrainingPreset
+    public class StudentHasTrainingPreset : BaseEntity
     {
         public DateTime? ExpirationDate { get; set; }
         public string AcquisitionType { get; set; }
