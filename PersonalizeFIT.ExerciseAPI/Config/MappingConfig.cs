@@ -24,9 +24,7 @@ namespace PersonalizeFIT.ExerciseAPI.Config
                         Id = e.Id,
                         Name = e.Name
                     })))
-                    .ReverseMap();
-
-                
+                    .ReverseMap();                
             });
             return mappingConfig;
         }

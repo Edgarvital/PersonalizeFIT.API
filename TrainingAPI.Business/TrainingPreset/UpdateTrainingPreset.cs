@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using TrainingAPI.Business.Exceptions;
 using TrainingAPI.Connectors.Database;
 using TrainingAPI.Entity.Models.TrainingPreset;
 
@@ -14,14 +16,22 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request)
+        public async Task<string> UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request)
         {
-            throw new NotImplementedException();
+            var TrainingPreset = await _context
+                .TrainingPresets
+                .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Training Preset não encontrado.");
+
+            _mapper.Map(request, TrainingPreset);
+
+            await _context.SaveChangesAsync();
+
+            return "Pré-definição de Treino Atualizada com Sucesso!";
         }
     }
 
     public interface IUpdateTrainingPreset
     {
-        public Task UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request);
+        public Task<string> UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request);
     }
 }

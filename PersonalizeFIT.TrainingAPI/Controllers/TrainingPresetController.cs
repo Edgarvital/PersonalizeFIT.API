@@ -18,12 +18,14 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         private IDeleteTrainingPreset _deleteTrainingPreset;
 
         public TrainingPresetController(
+            IGetAllTrainingPresets getAllTrainingPresets,
             IGetTrainingPreset getTrainingPreset,
             IPostTrainingPreset postTrainingPreset,
             IUpdateTrainingPreset updateTrainingPreset,
             IDeleteTrainingPreset deleteTrainingPreset
             )
         {
+            _getAllTrainingPresets = getAllTrainingPresets;
             _getTrainingPreset = getTrainingPreset;
             _postTrainingPreset = postTrainingPreset;
             _updateTrainingPreset = updateTrainingPreset;
@@ -37,6 +39,7 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         {
             try
             {
+                Console.WriteLine("entrou no controller");
                 var TrainingPresets = await _getAllTrainingPresets.GetAllTrainingPresetsAsync();
                 return Ok(TrainingPresets);
             }

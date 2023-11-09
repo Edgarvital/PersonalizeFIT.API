@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TrainingAPI.Business.Exceptions;
 using TrainingAPI.Connectors.Database;
 using TrainingAPI.Entity.Models.TrainingPreset;
 
@@ -19,9 +21,12 @@ namespace TrainingAPI.Business.TrainingGroup
             _mapper = mapper;
         }
 
-        public Task<GetTrainingPresetResponse> GetTrainingPresetAsync(int Id)
+        public async Task<GetTrainingPresetResponse> GetTrainingPresetAsync(int Id)
         {
-            throw new NotImplementedException();
+            var TrainingPreset = await _context.TrainingPresets
+                .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Training Preset não encontrado.");
+
+            return _mapper.Map<GetTrainingPresetResponse>(TrainingPreset);
         }
     }
 

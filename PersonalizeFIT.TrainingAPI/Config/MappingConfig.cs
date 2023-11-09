@@ -12,6 +12,8 @@ namespace PersonalizeFIT.TrainingAPI.Config
             var mappingConfig = new MapperConfiguration(config =>
             {
                 config.CreateMap<PostTrainingPresetRequest, TrainingPresetEntity>().ReverseMap();
+                config.CreateMap<GetTrainingPresetResponse, TrainingPresetEntity>().ReverseMap();
+                config.CreateMap<UpdateTrainingPresetRequest, TrainingPresetEntity>().ReverseMap();
             });
             return mappingConfig;
         }
