@@ -23,11 +23,11 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<List<GetTrainingGroupResponse>> GetAllTrainingGroupsAsync()
         {
-            var TrainingGroups = await _context.TrainingGroups
+            var trainingGroups = await _context.TrainingGroups
                 .ProjectTo<GetTrainingGroupResponse>(_mapper.ConfigurationProvider)
                 .ToListAsync();
 
-            return TrainingGroups;
+            return trainingGroups;
         }
     }
 

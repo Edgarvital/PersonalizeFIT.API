@@ -33,5 +33,6 @@ namespace TrainingAPI.Business.TrainingGroup
     public interface IUpdateTrainingPreset
     {
         public Task<string> UpdateTrainingPresetAsync(int Id, UpdateTrainingPresetRequest request);
+
     }
 }

@@ -22,9 +22,9 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<string> PostTrainingPresetAsync(PostTrainingPresetRequest request)
         {
-            var TrainingPreset = _mapper.Map<TrainingPresetEntity>(request);
+            var trainingPreset = _mapper.Map<TrainingPresetEntity>(request);
 
-            _context.TrainingPresets.Add(TrainingPreset);
+            _context.TrainingPresets.Add(trainingPreset);
 
             await _context.SaveChangesAsync();
 

@@ -40,8 +40,8 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
             try
             {
                 Console.WriteLine("entrou no controller");
-                var TrainingPresets = await _getAllTrainingPresets.GetAllTrainingPresetsAsync();
-                return Ok(TrainingPresets);
+                var trainingPresets = await _getAllTrainingPresets.GetAllTrainingPresetsAsync();
+                return Ok(trainingPresets);
             }
             catch (Exception ex)
             {
@@ -55,8 +55,8 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         {
             try
             {
-                var TrainingPreset = await _getTrainingPreset.GetTrainingPresetAsync(id);
-                return Ok(TrainingPreset);
+                var trainingPreset = await _getTrainingPreset.GetTrainingPresetAsync(id);
+                return Ok(trainingPreset);
             }
             catch (NotFoundException ex)
             {
@@ -89,8 +89,8 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         {
             try
             {
-                var Message = await _updateTrainingPreset.UpdateTrainingPresetAsync(id, request);
-                return Ok(Message);
+                var message = await _updateTrainingPreset.UpdateTrainingPresetAsync(id, request);
+                return Ok(message);
             }
             catch (NotFoundException ex)
             {
@@ -108,8 +108,8 @@ namespace PersonalizeFIT.TrainingAPI.Controllers
         {
             try
             {
-                var TrainingPreset = await _deleteTrainingPreset.DeleteTrainingPresetAsync(id);
-                return Ok(TrainingPreset);
+                var trainingPreset = await _deleteTrainingPreset.DeleteTrainingPresetAsync(id);
+                return Ok(trainingPreset);
             }
             catch (NotFoundException ex)
             {

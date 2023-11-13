@@ -17,9 +17,9 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<string> PostTrainingGroupAsync(PostTrainingGroupRequest request)
         {
-            var TrainingGroup = _mapper.Map<TrainingGroupEntity>(request);
+            var trainingGroup = _mapper.Map<TrainingGroupEntity>(request);
 
-            _context.TrainingGroups.Add(TrainingGroup);            
+            _context.TrainingGroups.Add(trainingGroup);            
 
             await _context.SaveChangesAsync();
 

@@ -23,14 +23,14 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<GetTrainingGroupResponse> DeleteTrainingGroupAsync(int Id)
         {
-            var TrainingGroup = await _context.TrainingGroups
+            var trainingGroup = await _context.TrainingGroups
                 .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Grupo de Treinamento não encontrado.");
 
-            _context.TrainingGroups.Remove(TrainingGroup);
+            _context.TrainingGroups.Remove(trainingGroup);
 
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<GetTrainingGroupResponse>(TrainingGroup);
+            return _mapper.Map<GetTrainingGroupResponse>(trainingGroup);
         }
     }
 

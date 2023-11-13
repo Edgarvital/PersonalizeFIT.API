@@ -23,10 +23,10 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<GetTrainingPresetResponse> GetTrainingPresetAsync(int Id)
         {
-            var TrainingPreset = await _context.TrainingPresets
+            var trainingPreset = await _context.TrainingPresets
                 .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Training Preset não encontrado.");
 
-            return _mapper.Map<GetTrainingPresetResponse>(TrainingPreset);
+            return _mapper.Map<GetTrainingPresetResponse>(trainingPreset);
         }
     }
 

@@ -23,14 +23,14 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<GetTrainingPresetResponse> DeleteTrainingPresetAsync(int Id)
         {
-            var TrainingPreset = await _context.TrainingPresets
+            var trainingPreset = await _context.TrainingPresets
                 .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Training Preset não encontrado.");
 
-            _context.TrainingPresets.Remove(TrainingPreset);
+            _context.TrainingPresets.Remove(trainingPreset);
 
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<GetTrainingPresetResponse>(TrainingPreset);
+            return _mapper.Map<GetTrainingPresetResponse>(trainingPreset);
         }
     }
 

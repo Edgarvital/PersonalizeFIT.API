@@ -24,11 +24,11 @@ namespace TrainingAPI.Business.TrainingGroup
 
         public async Task<GetTrainingGroupResponse> GetTrainingGroupAsync(int Id)
         {
-            var TrainingGroup = await _context.TrainingGroups
+            var trainingGroup = await _context.TrainingGroups
                 .Include(e => e.TrainingGroupHasExercises)
                 .FirstOrDefaultAsync(e => e.Id == Id) ?? throw new NotFoundException("Grupo de Treinamento não encontrado.");
 
-            return _mapper.Map<GetTrainingGroupResponse>(TrainingGroup);
+            return _mapper.Map<GetTrainingGroupResponse>(trainingGroup);
         }
     }
 
