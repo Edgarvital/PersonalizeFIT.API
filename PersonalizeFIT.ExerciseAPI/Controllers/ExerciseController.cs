@@ -8,6 +8,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PersonalizeFIT.ExerciseAPI.Controllers
 {
+    [Route("/")]
+    public class HomeController : ControllerBase
+    {
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            return Ok("Exercise API");
+        }
+    }
     [Route("api/[controller]")]
     [ApiController]
     public class ExerciseController : ControllerBase

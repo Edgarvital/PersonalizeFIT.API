@@ -1,0 +1,16 @@
+version: "3.7"
+
+networks:
+  kong-net:
+    name: kong-net
+    driver: bridge   
+
+services:
+  apiexercise:
+    image: image_apiexercise
+    environment:
+      PORT: ":4445"
+    networks:
+      - kong-net
+    ports:
+      - 4445:80
