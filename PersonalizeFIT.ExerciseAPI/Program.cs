@@ -49,7 +49,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddKeycloakAdminHttpClient(adminClientOptions);
 
 builder.Services.AddDbContext<ExerciseDbContext>(options =>
-    options.UseNpgsql(builder.Configuration["AppSettings:DB_CONN"],
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DB_CONN"),
         optionsBuilder =>
         {
             optionsBuilder.MigrationsHistoryTable("__EFMigrationsHistory", ExerciseDbContext.Schema);

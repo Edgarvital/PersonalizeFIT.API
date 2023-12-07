@@ -5,16 +5,16 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ExerciseAPI.Connectors.Migrations
 {
-    public partial class CreateExerciseAndMuscularGroupMigration : Migration
+    public partial class ExerciseAPIFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "PersonalizeFit.Exercise");
+                name: "Exercise");
 
             migrationBuilder.CreateTable(
                 name: "MuscularGroups",
-                schema: "PersonalizeFit.Exercise",
+                schema: "Exercise",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -28,7 +28,7 @@ namespace ExerciseAPI.Connectors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Exercises",
-                schema: "PersonalizeFit.Exercise",
+                schema: "Exercise",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -44,7 +44,7 @@ namespace ExerciseAPI.Connectors.Migrations
                     table.ForeignKey(
                         name: "FK_Exercises_MuscularGroups_MuscularGroupId",
                         column: x => x.MuscularGroupId,
-                        principalSchema: "PersonalizeFit.Exercise",
+                        principalSchema: "Exercise",
                         principalTable: "MuscularGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -52,7 +52,7 @@ namespace ExerciseAPI.Connectors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ExerciseHasEquivalentExercise",
-                schema: "PersonalizeFit.Exercise",
+                schema: "Exercise",
                 columns: table => new
                 {
                     EquivalentExerciseId = table.Column<int>(type: "integer", nullable: false),
@@ -64,14 +64,14 @@ namespace ExerciseAPI.Connectors.Migrations
                     table.ForeignKey(
                         name: "FK_ExerciseHasEquivalentExercise_Exercises_EquivalentExerciseId",
                         column: x => x.EquivalentExerciseId,
-                        principalSchema: "PersonalizeFit.Exercise",
+                        principalSchema: "Exercise",
                         principalTable: "Exercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ExerciseHasEquivalentExercise_Exercises_ExerciseId",
                         column: x => x.ExerciseId,
-                        principalSchema: "PersonalizeFit.Exercise",
+                        principalSchema: "Exercise",
                         principalTable: "Exercises",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -79,13 +79,13 @@ namespace ExerciseAPI.Connectors.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_ExerciseHasEquivalentExercise_ExerciseId",
-                schema: "PersonalizeFit.Exercise",
+                schema: "Exercise",
                 table: "ExerciseHasEquivalentExercise",
                 column: "ExerciseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exercises_MuscularGroupId",
-                schema: "PersonalizeFit.Exercise",
+                schema: "Exercise",
                 table: "Exercises",
                 column: "MuscularGroupId");
         }
@@ -94,15 +94,15 @@ namespace ExerciseAPI.Connectors.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ExerciseHasEquivalentExercise",
-                schema: "PersonalizeFit.Exercise");
+                schema: "Exercise");
 
             migrationBuilder.DropTable(
                 name: "Exercises",
-                schema: "PersonalizeFit.Exercise");
+                schema: "Exercise");
 
             migrationBuilder.DropTable(
                 name: "MuscularGroups",
-                schema: "PersonalizeFit.Exercise");
+                schema: "Exercise");
         }
     }
 }

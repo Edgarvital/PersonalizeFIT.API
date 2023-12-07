@@ -1,0 +1,30 @@
+# Stage 1: Build the application
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+
+COPY ["PersonalizeFIT.ExerciseAPI/PersonalizeFIT.ExerciseAPI.csproj", "PersonalizeFIT.ExerciseAPI/"]
+COPY ["ExerciseAPI.Business/ExerciseAPI.Business.csproj", "ExerciseAPI.Business/"]
+COPY ["ExerciseAPI.Connectors/ExerciseAPI.Connectors.csproj", "ExerciseAPI.Connectors/"]
+COPY ["ExerciseAPI.Entity/ExerciseAPI.Entity.csproj", "ExerciseAPI.Entity/"]
+RUN dotnet restore "PersonalizeFIT.ExerciseAPI/PersonalizeFIT.ExerciseAPI.csproj"
+
+# Copy the entire solution and build the app
+COPY . .
+WORKDIR "/src/ExerciseAPI.Connectors/"
+RUN dotnet build "../PersonalizeFIT.ExerciseAPI/PersonalizeFIT.ExerciseAPI.csproj" -c Release -o /app/build
+
+# Stage 2: Run EF Migrations Bundle
+FROM build AS migrations
+WORKDIR "/src"
+RUN dotnet publish "PersonalizeFIT.ExerciseAPI/PersonalizeFIT.ExerciseAPI.csproj" -c Release -o /app/publish
+RUN dotnet new tool-manifest && dotnet tool install dotnet-ef --version 7.0.0
+RUN dotnet ef --startup-project PersonalizeFIT.ExerciseAPI migrations bundle -o /app/efbundle
+
+# Stage 3: Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build /app/build .
+COPY --from=migrations /app/publish .
+COPY --from=migrations /app/efbundle .
+
+ENTRYPOINT ["./efbundle"]

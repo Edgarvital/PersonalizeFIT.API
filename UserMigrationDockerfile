@@ -1,0 +1,30 @@
+# Stage 1: Build the application
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+
+COPY ["PersonalizeFIT.UserAPI/PersonalizeFIT.UserAPI.csproj", "PersonalizeFIT.UserAPI/"]
+COPY ["UserAPI.Business/UserAPI.Business.csproj", "UserAPI.Business/"]
+COPY ["UserAPI.Connectors/UserAPI.Connectors.csproj", "UserAPI.Connectors/"]
+COPY ["UserAPI.Entity/UserAPI.Entity.csproj", "UserAPI.Entity/"]
+RUN dotnet restore "PersonalizeFIT.UserAPI/PersonalizeFIT.UserAPI.csproj"
+
+# Copy the entire solution and build the app
+COPY . .
+WORKDIR "/src/UserAPI.Connectors/"
+RUN dotnet build "../PersonalizeFIT.UserAPI/PersonalizeFIT.UserAPI.csproj" -c Release -o /app/build
+
+# Stage 2: Run EF Migrations Bundle
+FROM build AS migrations
+WORKDIR "/src"
+RUN dotnet publish "PersonalizeFIT.UserAPI/PersonalizeFIT.UserAPI.csproj" -c Release -o /app/publish
+RUN dotnet new tool-manifest && dotnet tool install dotnet-ef --version 7.0.0
+RUN dotnet ef --startup-project PersonalizeFIT.UserAPI migrations bundle -o /app/efbundle
+
+# Stage 3: Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build /app/build .
+COPY --from=migrations /app/publish .
+COPY --from=migrations /app/efbundle .
+
+ENTRYPOINT ["./efbundle"]

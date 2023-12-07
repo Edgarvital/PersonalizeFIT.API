@@ -17,7 +17,7 @@ namespace TrainingAPI.Connectors.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("PersonalizeFit.Training")
+                .HasDefaultSchema("Training")
                 .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -49,7 +49,7 @@ namespace TrainingAPI.Connectors.Migrations
 
                     b.HasIndex("TrainingPresetId");
 
-                    b.ToTable("StudentHasTrainingPreset", "PersonalizeFit.Training");
+                    b.ToTable("StudentHasTrainingPreset", "Training");
                 });
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupEntity", b =>
@@ -71,7 +71,7 @@ namespace TrainingAPI.Connectors.Migrations
 
                     b.HasIndex("TrainingPresetId");
 
-                    b.ToTable("TrainingGroups", "PersonalizeFit.Training");
+                    b.ToTable("TrainingGroups", "Training");
                 });
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingGroupHasExercise", b =>
@@ -100,7 +100,7 @@ namespace TrainingAPI.Connectors.Migrations
 
                     b.HasIndex("TrainingGroupId");
 
-                    b.ToTable("TrainingGroupHasExercise", "PersonalizeFit.Training");
+                    b.ToTable("TrainingGroupHasExercise", "Training");
                 });
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.TrainingPresetEntity", b =>
@@ -124,7 +124,7 @@ namespace TrainingAPI.Connectors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainingPresets", "PersonalizeFit.Training");
+                    b.ToTable("TrainingPresets", "Training");
                 });
 
             modelBuilder.Entity("TrainingAPI.Entity.Entities.StudentHasTrainingPreset", b =>

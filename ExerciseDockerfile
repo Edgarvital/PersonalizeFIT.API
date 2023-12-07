@@ -1,0 +1,19 @@
+# BUILD STAGE
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /source
+COPY . .
+RUN dotnet publish "PersonalizeFIT.ExerciseAPI/PersonalizeFIT.ExerciseAPI.csproj" -c Release -o /app/publish
+
+# RUNTIME STAGE
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:8045
+
+EXPOSE 8045
+
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "PersonalizeFIT.ExerciseAPI.dll"]

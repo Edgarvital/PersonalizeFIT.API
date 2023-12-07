@@ -18,6 +18,7 @@ namespace TrainingAPI.Business.TrainingGroup
         public async Task<string> PostTrainingGroupAsync(PostTrainingGroupRequest request)
         {
             var trainingGroup = _mapper.Map<TrainingGroupEntity>(request);
+            //Validar TrainingPresetId
 
             _context.TrainingGroups.Add(trainingGroup);            
 

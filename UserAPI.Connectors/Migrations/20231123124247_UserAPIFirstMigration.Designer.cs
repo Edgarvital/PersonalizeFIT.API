@@ -2,28 +2,30 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UserAPI.Connectors.Database;
 
 #nullable disable
 
-namespace Connectors.Migrations
+namespace UserAPI.Connectors.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class AuthUserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231123124247_UserAPIFirstMigration")]
+    partial class UserAPIFirstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("PersonalizeFit.User")
-                .HasAnnotation("ProductVersion", "6.0.12")
+                .HasDefaultSchema("User")
+                .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Entity.Models.TrainerHasStudent", b =>
+            modelBuilder.Entity("UserAPI.Entity.Entities.TrainerHasStudentEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +50,7 @@ namespace Connectors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TrainerHasStudent", "AuthUser");
+                    b.ToTable("TrainerHasStudent", "User");
                 });
 #pragma warning restore 612, 618
         }

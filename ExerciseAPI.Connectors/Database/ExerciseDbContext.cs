@@ -6,7 +6,7 @@ namespace ExerciseAPI.Connectors.Database
     public class ExerciseDbContext : DbContext
     {
 
-        public const string Schema = "PersonalizeFit.Exercise";
+        public const string Schema = "Exercise";
 
         public ExerciseDbContext (DbContextOptions<ExerciseDbContext> options) : base(options) { }
 

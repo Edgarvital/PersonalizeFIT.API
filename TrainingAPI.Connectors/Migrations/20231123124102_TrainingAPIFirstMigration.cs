@@ -6,16 +6,16 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TrainingAPI.Connectors.Migrations
 {
-    public partial class CreateTrainingPresetAndTrainingGroupWithRelationsMigrations : Migration
+    public partial class TrainingAPIFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "PersonalizeFit.Training");
+                name: "Training");
 
             migrationBuilder.CreateTable(
                 name: "TrainingPresets",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -31,7 +31,7 @@ namespace TrainingAPI.Connectors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "StudentHasTrainingPreset",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -47,7 +47,7 @@ namespace TrainingAPI.Connectors.Migrations
                     table.ForeignKey(
                         name: "FK_StudentHasTrainingPreset_TrainingPresets_TrainingPresetId",
                         column: x => x.TrainingPresetId,
-                        principalSchema: "PersonalizeFit.Training",
+                        principalSchema: "Training",
                         principalTable: "TrainingPresets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -55,7 +55,7 @@ namespace TrainingAPI.Connectors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TrainingGroups",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -69,7 +69,7 @@ namespace TrainingAPI.Connectors.Migrations
                     table.ForeignKey(
                         name: "FK_TrainingGroups_TrainingPresets_TrainingPresetId",
                         column: x => x.TrainingPresetId,
-                        principalSchema: "PersonalizeFit.Training",
+                        principalSchema: "Training",
                         principalTable: "TrainingPresets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -77,7 +77,7 @@ namespace TrainingAPI.Connectors.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TrainingGroupHasExercise",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -93,7 +93,7 @@ namespace TrainingAPI.Connectors.Migrations
                     table.ForeignKey(
                         name: "FK_TrainingGroupHasExercise_TrainingGroups_TrainingGroupId",
                         column: x => x.TrainingGroupId,
-                        principalSchema: "PersonalizeFit.Training",
+                        principalSchema: "Training",
                         principalTable: "TrainingGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -101,19 +101,19 @@ namespace TrainingAPI.Connectors.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudentHasTrainingPreset_TrainingPresetId",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 table: "StudentHasTrainingPreset",
                 column: "TrainingPresetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingGroupHasExercise_TrainingGroupId",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 table: "TrainingGroupHasExercise",
                 column: "TrainingGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrainingGroups_TrainingPresetId",
-                schema: "PersonalizeFit.Training",
+                schema: "Training",
                 table: "TrainingGroups",
                 column: "TrainingPresetId");
         }
@@ -122,19 +122,19 @@ namespace TrainingAPI.Connectors.Migrations
         {
             migrationBuilder.DropTable(
                 name: "StudentHasTrainingPreset",
-                schema: "PersonalizeFit.Training");
+                schema: "Training");
 
             migrationBuilder.DropTable(
                 name: "TrainingGroupHasExercise",
-                schema: "PersonalizeFit.Training");
+                schema: "Training");
 
             migrationBuilder.DropTable(
                 name: "TrainingGroups",
-                schema: "PersonalizeFit.Training");
+                schema: "Training");
 
             migrationBuilder.DropTable(
                 name: "TrainingPresets",
-                schema: "PersonalizeFit.Training");
+                schema: "Training");
         }
     }
 }

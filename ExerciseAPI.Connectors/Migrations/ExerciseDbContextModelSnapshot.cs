@@ -16,13 +16,13 @@ namespace ExerciseAPI.Connectors.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("PersonalizeFit.Exercise")
+                .HasDefaultSchema("Exercise")
                 .HasAnnotation("ProductVersion", "6.0.23")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ExerciseAPI.Entity.Entities.Exercise", b =>
+            modelBuilder.Entity("ExerciseAPI.Entity.Entities.ExerciseEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,10 +49,10 @@ namespace ExerciseAPI.Connectors.Migrations
 
                     b.HasIndex("MuscularGroupId");
 
-                    b.ToTable("Exercises", "PersonalizeFit.Exercise");
+                    b.ToTable("Exercises", "Exercise");
                 });
 
-            modelBuilder.Entity("ExerciseAPI.Entity.Entities.MuscularGroup", b =>
+            modelBuilder.Entity("ExerciseAPI.Entity.Entities.MuscularGroupEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace ExerciseAPI.Connectors.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MuscularGroups", "PersonalizeFit.Exercise");
+                    b.ToTable("MuscularGroups", "Exercise");
                 });
 
             modelBuilder.Entity("ExerciseHasEquivalentExercise", b =>
@@ -81,12 +81,12 @@ namespace ExerciseAPI.Connectors.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("ExerciseHasEquivalentExercise", "PersonalizeFit.Exercise");
+                    b.ToTable("ExerciseHasEquivalentExercise", "Exercise");
                 });
 
-            modelBuilder.Entity("ExerciseAPI.Entity.Entities.Exercise", b =>
+            modelBuilder.Entity("ExerciseAPI.Entity.Entities.ExerciseEntity", b =>
                 {
-                    b.HasOne("ExerciseAPI.Entity.Entities.MuscularGroup", "MuscularGroup")
+                    b.HasOne("ExerciseAPI.Entity.Entities.MuscularGroupEntity", "MuscularGroup")
                         .WithMany()
                         .HasForeignKey("MuscularGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -97,13 +97,13 @@ namespace ExerciseAPI.Connectors.Migrations
 
             modelBuilder.Entity("ExerciseHasEquivalentExercise", b =>
                 {
-                    b.HasOne("ExerciseAPI.Entity.Entities.Exercise", null)
+                    b.HasOne("ExerciseAPI.Entity.Entities.ExerciseEntity", null)
                         .WithMany()
                         .HasForeignKey("EquivalentExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ExerciseAPI.Entity.Entities.Exercise", null)
+                    b.HasOne("ExerciseAPI.Entity.Entities.ExerciseEntity", null)
                         .WithMany()
                         .HasForeignKey("ExerciseId")
                         .OnDelete(DeleteBehavior.Cascade)

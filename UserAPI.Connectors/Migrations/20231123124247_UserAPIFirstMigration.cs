@@ -3,18 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Connectors.Migrations
+namespace UserAPI.Connectors.Migrations
 {
-    public partial class AddTrainerHasStudentMigration : Migration
+    public partial class UserAPIFirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "PersonalizeFit.User");
+                name: "User");
 
             migrationBuilder.CreateTable(
                 name: "TrainerHasStudent",
-                schema: "AuthUser",
+                schema: "User",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -34,7 +34,7 @@ namespace Connectors.Migrations
         {
             migrationBuilder.DropTable(
                 name: "TrainerHasStudent",
-                schema: "AuthUser");
+                schema: "User");
         }
     }
 }

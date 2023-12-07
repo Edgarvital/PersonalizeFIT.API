@@ -5,7 +5,7 @@ namespace UserAPI.Connectors.Database
 {
     public class UserDbContext : DbContext
     {
-        public const string Schema = "PersonalizeFit.User";
+        public const string Schema = "User";
 
         public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
 

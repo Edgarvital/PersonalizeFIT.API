@@ -6,7 +6,7 @@ namespace TrainingAPI.Connectors.Database
     public class TrainingDbContext : DbContext
     {
 
-        public const string Schema = "PersonalizeFit.Training";
+        public const string Schema = "Training";
 
         public TrainingDbContext (DbContextOptions<TrainingDbContext> options) : base(options) { }
 
